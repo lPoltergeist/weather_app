@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 
 interface CardInfo {
     citySaved?: {
+      name?: string,
     },
     main?: {
-      name?: string | undefined,
+      temp?: number | undefined
     }
     
 }
@@ -14,18 +15,21 @@ const Card = (CityName: any) => {
   const [citySaved, setCitySaved] = useState<CardInfo>()
 
   useEffect(() => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${CityName}&appid=e6a3692c2e220fec8909888530171b83`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${CityName.CityName}&appid=e6a3692c2e220fec8909888530171b83`)
     .then(res => res.json()).then(res => setCitySaved(res)).catch(err => console.log(err));
 
-    console.log(citySaved);
   },[CityName])
-  console.log(citySaved)
+
+  console.log(JSON.stringify(CityName.CityName))
+  console.log("citySaved " + JSON.stringify(citySaved))
 
   return (
     <TouchableOpacity style={styles.CardContainer}>
-      <Text style={{color:'#cbe4de', fontSize:20, marginBottom: 10}}>Searched Locations</Text>
       <View style={{height:100, width: 100, borderRadius:10, padding:10, backgroundColor:"rgba(14, 131, 136, 0.8)"}}>
-        <Text>batata</Text>
+        <Text style={{color:"#CBE4DE", fontSize: 13}}>{citySaved?.name}</Text>
+        <Text style={{fontSize: 12, color:"#CBE4DE"}}>temp: {(citySaved?.main?.temp - 273).toFixed(2)}°c</Text>
+        <Text style={{fontSize: 12, color:"#CBE4DE"}}>max: {(citySaved?.main?.temp_max - 273).toFixed(2)}°c</Text>
+        <Text style={{fontSize: 12, color:"#CBE4DE"}}>min: {(citySaved?.main?.temp_min - 273).toFixed(2)}°c</Text>
       </View>
     </TouchableOpacity>
   )

@@ -34,6 +34,8 @@ const Home = () => {
             AddCity(weather.name)
         }
     }
+
+    console.log("city " + city)
  
     return (
         <ImageBackground source={Night} resizeMode="cover" style={styles.image}>
@@ -72,9 +74,12 @@ const Home = () => {
             <View style={{ flex: 1 }}>
                
                 {city ?
+                     <>
+                     <Text style={{color:'#cbe4de', fontSize:20, marginBottom: 10, flex: 1, justifyContent: 'flex-end',}}>Searched Locations</Text>
                     <FlatList horizontal data={city} renderItem={({ item }) => (
-                        <Card CityName={city.name} />
+                        <Card CityName={item} />
                     )} />
+                    </>
                     :
                     <View style={{ flex: 1, justifyContent: "flex-end" }}>
                         <Text style={{ color: "#CBE4DE", fontSize: 20, justifyContent: "center", alignSelf: "center", marginBottom: 30 }}>

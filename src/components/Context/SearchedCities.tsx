@@ -15,7 +15,7 @@ export const CitiesContext = createContext({} as CityContext);
 export const CitiesProvider = ({ children }: CitiesProvider) => {
     const [city, setCity] = useState<string[]>([])
 
-
+    console.log("Context " + JSON.stringify(city))
     function AddCity(name: string) {
 
         setCity([...city, name])
